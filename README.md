@@ -1,1 +1,1 @@
-# note-mapper
+# Note Synthesis
