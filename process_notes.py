@@ -1,31 +1,23 @@
-from google import genai
-from dotenv import load_dotenv
-import os
 from pathlib import Path
+import json
+import shutil
 
-load_dotenv()
-API_KEY = os.environ.get('API_KEY')
 
-notes_inbox = Path(__file__).parent / "notes" / "inbox"
 
 def process_notes():
-    notes = []
+    notes_inbox = Path(__file__).parent / "notes" / "inbox"
+    notes_processed = Path(__file__).parent / "notes" / "processed"
+
+    notes_array = []
     for note_file in notes_inbox.glob("*.md"):
-        notes.append(note_file)
+        notes_array.append({
+            "title": note_file.name,
+            "content": note_file.read_text(encoding="utf-8")
+        })
+        shutil.move(note_file, notes_processed)
 
-    return notes
+    output_file = Path(__file__).parent / "notes" / "notes.json"
+    with open(output_file, "w", encoding="utf-8") as file:
+        json.dump(notes_array, file, indent=2)
 
-def call_llm():
-    # The client gets the API key from the environment variable `GEMINI_API_KEY`.
-    client = genai.Client(api_key=API_KEY)
-
-    response = client.models.generate_content(
-        model="gemini-2.5-flash", contents="Explain how AI works in a few words"
-    )
-    print(response.text)
-
-note_array = process_notes()
-
-for note in note_array:
-    content = note.read_text(encoding="utf-8")
-    print(content)
+process_notes()
