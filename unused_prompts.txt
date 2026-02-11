@@ -1,0 +1,10 @@
+Review this list of categories from individual notes. Merge similar/overlapping categories into a clean taxonomy.
+
+Rules:
+- Combine near-duplicates (e.g., "Movies to Watch" + "Films to See" → "Movies to Watch")
+- Keep categories at a consistent level of specificity
+- Prefer the most common/natural phrasing when merging
+- Maximum of 20-30 final categories (adjust based on your needs)
+
+Output format: Return ONLY a JSON array of category strings:
+["Category 1", "Category 2", "Category 3"]
