@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 import shutil
 
+# OUTPUT: notes.json
 def pre_process_notes():
     notes_inbox = Path(__file__).parent / "notes" / "inbox"
     notes_processed = Path(__file__).parent / "notes" / "processed"
