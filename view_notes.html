@@ -128,11 +128,19 @@
             padding-top: 20px;
             border-top: 1px solid #ddd;
         }
+
+        .summary-header {
+            text-align: center;
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 25px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>📝 Category Notes</h1>
+        <div class="summary-header" id="summaryStats"></div>
         <div id="categories"></div>
         <div class="stats" id="stats"></div>
     </div>
@@ -156,7 +164,7 @@
         function renderCategories(data) {
             Object.entries(data).forEach(([category, notes]) => {
                 const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'category';
+                categoryDiv.className = 'category collapsed';
                 
                 const header = document.createElement('div');
                 header.className = 'category-header';
@@ -192,7 +200,8 @@
         function updateStats(data) {
             const totalNotes = Object.values(data).reduce((sum, notes) => sum + notes.length, 0);
             const totalCategories = Object.keys(data).length;
-            statsContainer.textContent = `${totalCategories} categories • ${totalNotes} total notes`;
+            document.getElementById('summaryStats').textContent = `${totalNotes} Notes - ${totalCategories} Categories`;
+            statsContainer.textContent = '';
         }
     </script>
 </body>
